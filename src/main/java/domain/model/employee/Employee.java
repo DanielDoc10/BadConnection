@@ -1,4 +1,7 @@
 package domain.model.employee;
 
-public class Employee {
+import domain.model.assignment.Assignee;
+
+public class Employee implements Assignee {
+
 }
