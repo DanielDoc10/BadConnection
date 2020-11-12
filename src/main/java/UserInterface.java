@@ -1,9 +1,12 @@
 import domain.model.employee.Employee;
+import domain.model.employee.EmployeeRepoIMPL;
+import domain.model.employee.EmployeeService;
 
 import java.util.Scanner;
 
 public class UserInterface {
     private Employee selectedEmployee;
+    private EmployeeRepoIMPL employeeRepoIMPL;
 
     public UserInterface()
     {
@@ -13,14 +16,24 @@ public class UserInterface {
     public void start() {
         System.out.println("Welcome to the application!");
 
-        while (!isLoggedIn())
-        {
-
+        while (!isLoggedIn()) {
             logInUser();
-
         }
+        displayLoggedInUser();
+
+        this.displayOptions();
+
 
         userInterface.logInUser();
+    }
+
+    private void displayOptions() {
+        System.out.println("1. Create new employee.");
+        System.out.println("2. Generate reports for employee for department.");
+    }
+
+    private void displayLoggedInUser() {
+        System.out.println("Logged in as %s", selectedEmployee.getName());
     }
 
     private boolean isLoggedIn() {
@@ -31,10 +44,7 @@ public class UserInterface {
 
     private void logInUser() {
         short empNum = this.promptForEmpNum();
-        this.selectedEmployee = this.getEmployee(empNum);
-    }
-
-    private Employee getEmployee(short empNum) {
+        this.selectedEmployee = employeeRepoIMPL.getEmployeeByID(empNum);
     }
 
     private short promptForEmpNum() {
